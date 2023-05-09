@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zr.mapper.MenusMapper">
+
+
+    <update id="updateZeroViewable">
+            <![CDATA[
+        UPDATE menus SET viewable = 0 WHERE id NOT IN
+        ]]>
+            <foreach item="id" index="index" collection="list" open="(" separator="," close=")">
+                #{id, jdbcType=INTEGER}
+            </foreach>
+    </update>
+    <select id="selectAllMenu" resultType="com.zr.pojo.Menus">
+        SELECT * FROM menus
+        <where>
+            menuname != '菜单管理'
+            <if test="menuname != null">
+              AND  menuname like concat('%', #{menuname}, '%')
+            </if>
+
+        </where>
+        ORDER BY id
+    </select>
+
+
+</mapper>

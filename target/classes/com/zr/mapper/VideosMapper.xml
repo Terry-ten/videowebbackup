@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zr.mapper.VideosMapper">
+
+
+    <insert id="insertVideo" >
+        INSERT INTO videos
+        (
+        author,
+        title,
+        description,
+        coverimage,
+        videolocation,
+        type,
+        createtime,
+        updatetime
+        )
+        VALUES
+        (
+        <if test="author != null">#{author},</if>
+
+        <if test="title != null">#{title},</if>
+
+        <if test="description != null">#{description},</if>
+
+        <if test="coverimage != null">#{coverimage},</if>
+
+        <if test="videolocation != null">#{videolocation},</if>
+
+        <if test="type != null">#{type},</if>
+
+        #{createtime},
+        #{updatetime}
+        )
+    </insert>
+    <select id="selectAllVideos" resultType="com.zr.pojo.Videos">
+        SELECT * FROM videos
+        <where>
+            <if test="author != null">
+                AND author LIKE CONCAT('%', #{author}, '%')
+            </if>
+            <if test="begin != null and end != null">
+                AND DATE(createtime) BETWEEN #{begin} AND #{end}
+            </if>
+        </where>
+        order by createtime desc
+    </select>
+    <select id="selectMainVideos" resultType="com.zr.pojo.Videos">
+        SELECT * FROM videos
+        <where>
+            <if test="type != null and type != ''">
+                AND type = #{type}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND title LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+        </where>
+        <if test="sort != null">
+            <choose>
+                <when test="sort == 'goods'">
+                    ORDER BY goods
+                </when>
+                <when test="sort == 'watchcount'">
+                    ORDER BY watchcount
+                </when>
+                <when test="sort == 'createtime'">
+                    ORDER BY createtime
+                </when>
+                <when test="sort == 'createtimedesc'">
+                    ORDER BY createtime desc
+                </when>
+            </choose>
+        </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zr.mapper.ReportsMapper">
+
+
+    <select id="selectAllReports" resultType="com.zr.pojo.ReporstsPage">
+        SELECT reports.id,user_id,username as reporter, type, targetid, reason, reports.createtime
+        FROM users,reports
+        <where>
+         users.id = reports.user_id
+            <if test="type != null">
+                AND type = #{type}
+            </if>
+            <if test="begin != null and end != null">
+                AND DATE(reports.createtime) BETWEEN #{begin} AND #{end}
+            </if>
+        </where>
+    </select>
+</mapper>

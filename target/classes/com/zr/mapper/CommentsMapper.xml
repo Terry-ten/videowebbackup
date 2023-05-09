@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zr.mapper.CommentsMapper">
+
+
+    <select id="selectAllComments" resultType="com.zr.pojo.Comments">
+        SELECT * FROM comments
+        <where>
+            <if test="speaker != null">
+                AND speaker LIKE CONCAT('%', #{speaker}, '%')
+            </if>
+            <if test="videoid != null">
+                AND videoid = #{videoid}
+            </if>
+            <if test="begin != null and end != null">
+                AND DATE(createtime) BETWEEN #{begin} AND #{end}
+            </if>
+        </where>
+        ORDER BY createtime DESC
+    </select>
+
+</mapper>

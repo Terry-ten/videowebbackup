@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/src/main/java/com/zr/mapper/CommentsMapper.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/zr/mapper/LogsMapper.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/zr/mapper/MenusMapper.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/zr/mapper/PermissionMapper.java" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/zr/mapper/RolePermissionMapper.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/zr/mapper/RolesMapper.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/zr/mapper/TypesMapper.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/zr/mapper/UserRoleMapper.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/zr/mapper/UsersMapper.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/com/zr/mapper/MenusMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/com/zr/mapper/ReportsMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/com/zr/mapper/UserRoleMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/com/zr/mapper/UsersMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/com/zr/mapper/VideosMapper.xml" dialect="MySQL" />
+    <file url="PROJECT" dialect="MySQL" />
+  </component>
+</project>
