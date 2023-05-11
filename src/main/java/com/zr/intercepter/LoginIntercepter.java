@@ -28,7 +28,7 @@ public class LoginIntercepter implements HandlerInterceptor {
 
         System.out.println("我在拦截器里面Inside preHandle method of LoginInterceptor");
         String url=request.getRequestURI().toString();
-        if(url.endsWith("/login")||url.endsWith("/admin")||url.endsWith("/database")){
+        if(url.contains("/login")||url.contains("/regist")){
             log.info(url+"1");
             return true;
         }

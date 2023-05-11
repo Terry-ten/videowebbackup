@@ -2,6 +2,7 @@ package com.zr.mapper;
 
 import com.zr.pojo.Logs;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -22,6 +23,9 @@ public interface LogsMapper extends BaseMapper<Logs> {
     void insertLogs(Logs log);
 
     List<Logs> selectPageLogs(Integer operateid, LocalDate begin, LocalDate end);
+
+    @Delete("delete from logs where id=#{id}")
+    void deletebyid(Integer id);
 }
 
 

@@ -41,6 +41,7 @@ public class RolesServiceImpl
 
 
 
+
     @MyLogs
     @Transactional
     @Override
@@ -68,6 +69,13 @@ public class RolesServiceImpl
         userRoleMapper.updateRoleType(userRole);
         usersMapper.updateRoletype(userid,3);
 
+    }
+    public String getRoleNameByRoleId(int roleId) {
+        Roles role = rolesMapper.selectByPrimaryKey(roleId);
+        if (role != null) {
+            return role.getRolename();
+        }
+        return null;
     }
 }
 

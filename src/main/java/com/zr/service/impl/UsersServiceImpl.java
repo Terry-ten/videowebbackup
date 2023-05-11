@@ -170,9 +170,9 @@ public class UsersServiceImpl implements UsersService{
     }
 
     @Override
-    public void updateUserPassword(String password) {
-        password=MD5Util.md5(password);
-        usersMapper.updateUserPassword(password);
+    public void updateUserPassword(Users users) {
+        users.setPassword(MD5Util.md5(users.getPassword()));
+        usersMapper.updateUserPassword(users);
     }
 
     @Override
@@ -211,7 +211,7 @@ public class UsersServiceImpl implements UsersService{
     }
 
     @Override
-    public Users getOneUser(Integer id) {
+    public Users getOneUserById(Integer id) {
         return usersMapper.selectByIdUsers(id);
     }
 
@@ -227,6 +227,16 @@ public class UsersServiceImpl implements UsersService{
     public Integer getIdByUsername(String author) {
         Integer id = usersMapper.selectIdByname(author);
         return id;
+    }
+
+    @Override
+    public String getQuestionByusername(String username) {
+        return usersMapper.selectQuestionByUsername(username);
+    }
+
+    @Override
+    public Users getOneUser(String username) {
+        return usersMapper.selectAllByUsername(username);
     }
 
 

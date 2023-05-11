@@ -1,12 +1,10 @@
 package com.zr.controller;
 
 
+import com.zr.pojo.UserVideoLike;
 import com.zr.pojo.Users;
 import com.zr.pojo.Videos;
-import com.zr.service.PermissionService;
-import com.zr.service.RolePermissionService;
-import com.zr.service.UsersService;
-import com.zr.service.VideosService;
+import com.zr.service.*;
 import com.zr.utils.AliYunOssUtils;
 import com.zr.utils.PermissionUtil;
 import com.zr.utils.Result;
@@ -15,7 +13,9 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author zr
@@ -36,9 +37,14 @@ public class VideosController {
     @Autowired
     private UsersService usersService;
     @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+    @Autowired
     private RolePermissionService rolePermissionService;
     @Autowired
     private PermissionService permissionService;
+
+    @Autowired
+    private UserVideoLikeService userVideoLikeService;
     @GetMapping("/videos")
     public Result GetAllVideos(HttpServletRequest request,
                                @RequestParam(defaultValue = "1") Integer page,
@@ -67,9 +73,9 @@ public class VideosController {
     }
 
     @GetMapping("/videos/main")
-    public Result getMainVideos(String type,String sort,String keyword){
-        List<Videos> videos = videosService.getMainVideos(type,sort,keyword);
-        return Result.success(videos);
+    public Result getMainVideos(Integer page,Integer pageSize,String type,String sort,String keyword){
+        PageBean pageBean=videosService.Mainpage(page,pageSize,type,sort,keyword);
+        return Result.success(pageBean);
     }
     @GetMapping("/videos/watch/{id}")
     public Result watchVideoById(@PathVariable Integer id){
@@ -161,4 +167,20 @@ public class VideosController {
         Integer id=usersService.getIdByUsername(author);
        return Result.success(id);
     }
+    @GetMapping("/videos/userlike/get")
+    public Result getUserLike(@RequestParam("userid") Integer userid,@RequestParam Integer videoid){
+        UserVideoLike userVideoLike = userVideoLikeService.getUserLike(userid, videoid);
+        return Result.success(userVideoLike);
+    }
+    @PostMapping("/videos/userlike/islike")
+    public Result updateUserLike(@RequestBody UserVideoLike userVideoLike){
+        try {
+            userVideoLikeService.updateUserLike(userVideoLike);
+            return Result.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error("点赞失败");
+        }
+    }
+
 }

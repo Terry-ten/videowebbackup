@@ -1,6 +1,7 @@
 package com.zr.controller;
 
 
+import com.baomidou.mybatisplus.extension.api.R;
 import com.zr.pojo.Users;
 import com.zr.service.PermissionService;
 import com.zr.service.RolePermissionService;
@@ -73,16 +74,7 @@ public class UsersController {
         }
         return Result.success();
     }
-    @PostMapping("/user/password/update/{password}")
-    public Result updateUserPassword(@PathVariable String password){
-        try {
-            usersService.updateUserPassword(password);
-        }catch (Exception e){
-            e.printStackTrace();
-            return Result.error("修改密码失败，请稍后重试");
-        }
-        return Result.success();
-    }
+
     @PostMapping("/users/update")
     public Result updateUser(MultipartFile headimage,String username,String phonenumber,String introduction,Integer id,String headimageurl) throws IOException {
         String imageurl=null;
@@ -135,8 +127,13 @@ public class UsersController {
         return Result.success();
     }
     @GetMapping("/users/get/{id}")
-    public Result getOneUser(@PathVariable Integer id){
-      Users user= usersService.getOneUser(id);
+    public Result getOneUserById(@PathVariable Integer id){
+      Users user= usersService.getOneUserById(id);
       return Result.success(user);
+    }
+    @GetMapping("/users/watch/get/{username}")
+    public Result getOneUser(@PathVariable String username){
+      Users users=usersService.getOneUser(username);
+      return Result.success(users);
     }
 }

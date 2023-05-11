@@ -15,10 +15,9 @@ import java.util.UUID;
 public class AliYunOssUtils {
 
     public static String endpoint = "https://oss-cn-chengdu.aliyuncs.com";
-    public static String accessKeyId = "";
-    public static String accessKeySecret = "";
+    public static String accessKeyId = "LTAI5t9hPXKzdzyK3WdFK1Nb";
+    public static String accessKeySecret = "4uuz1EvTyyqzXoxOY11mdMJvj0MKNn";
     public static String bucketName = "zr-video-web";
-
 
 
     /**

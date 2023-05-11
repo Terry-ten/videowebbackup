@@ -35,6 +35,13 @@ public class LogsServiceImpl
         Page<Logs> logs1= (Page<Logs>) logs;
         return new PageBean(logs1.getTotal(),logs1.getResult());
     }
+
+    @Override
+    public void deleteLogs(List<Integer> ids) {
+        for (Integer id : ids) {
+            logsMapper.deletebyid(id);
+        }
+    }
 }
 
 

@@ -46,5 +46,9 @@ public class RoleController {
             return Result.error("删除失败");
         }
     }
-
+    @GetMapping("/roles/rolename/get/{roletype}")
+    public Result getRoleNameByRoleId(@PathVariable Integer roletype) {
+        String rolename = rolesService.getRoleNameByRoleId(roletype);
+        return Result.success(rolename);
+    }
 }

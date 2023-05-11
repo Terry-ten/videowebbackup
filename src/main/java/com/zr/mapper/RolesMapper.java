@@ -36,6 +36,9 @@ public interface RolesMapper extends BaseMapper<Roles> {
 
     @Select("select id from roles where rolename=#{rolename}")
     Integer selectIdByname(String rolename);
+
+    @Select("select  rolename from roles where id =#{id}")
+    Roles selectByPrimaryKey(Integer id);
 }
 
 

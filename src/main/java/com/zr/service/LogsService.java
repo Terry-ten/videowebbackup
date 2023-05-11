@@ -5,6 +5,7 @@ import com.zr.pojo.Logs;
 import com.zr.pojo.PageBean;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author zr
@@ -12,4 +13,6 @@ import java.time.LocalDate;
  */
 public interface LogsService{
     PageBean page(Integer page, Integer pageSize, Integer operateid, LocalDate begin, LocalDate end);
+
+    void deleteLogs(List<Integer> ids);
 }

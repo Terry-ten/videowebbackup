@@ -27,15 +27,19 @@ public interface UsersService  {
 
     int addUser(Users user);
 
-    void updateUserPassword(String password);
+    void updateUserPassword(Users users);
 
     void updateUsersHeadimage(String imageurl);
 
     int updateUser(Integer id, String username, String phonenumber, String introduction, String headimage);
 
-    Users getOneUser(Integer id);
+    Users getOneUserById(Integer id);
 
     PageBean page(Integer page, Integer pageSize, String username);
 
     Integer getIdByUsername(String author);
+
+    String getQuestionByusername(String username);
+
+    Users getOneUser(String username);
 }

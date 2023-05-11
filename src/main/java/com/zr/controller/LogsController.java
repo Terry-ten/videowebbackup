@@ -1,5 +1,6 @@
 package com.zr.controller;
 
+import com.zr.pojo.Ids;
 import com.zr.service.LogsService;
 import com.zr.pojo.PageBean;
 import com.zr.service.PermissionService;
@@ -9,9 +10,7 @@ import com.zr.utils.Result;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -51,5 +50,16 @@ public class LogsController {
         PageBean pageBean= logsService.page(page,pageSize,oprateId,begin,end);
 
         return Result.success(pageBean);
+    }
+    @DeleteMapping("/logs/delete")
+    public Result deleteLogs(@RequestBody Ids ids){
+        try {
+            List<Integer> list =ids.getIds();
+            logsService.deleteLogs(list);
+            return Result.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error("删除失败！");
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.zr.mapper;
 
+import com.zr.pojo.UserVideoLike;
 import com.zr.pojo.Videos;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Delete;
@@ -59,6 +60,12 @@ public interface VideosMapper extends BaseMapper<Videos> {
 
     @Update("update videos set type = #{typename} where type=#{oldname}")
     void updateVideoType(String typename,String oldname);
+
+    @Update("update videos set goods=goods+1 where id=#{videoid}")
+    void upVideoLikecount(UserVideoLike userVideoLike);
+
+    @Update("update videos set goods=goods-1 where id=#{videoid}")
+    void downVideoLikecount(UserVideoLike userVideoLike);
 }
 
 

@@ -11,6 +11,7 @@ import com.zr.pojo.Videos;
 import com.zr.service.CommentsService;
 import com.zr.service.VideosService;
 import com.zr.mapper.VideosMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ import java.util.List;
 * @description 针对表【videos】的数据库操作Service实现
 * @createDate 2023-04-03 12:36:48
 */
+@Slf4j
 @Service
 public class VideosServiceImpl
     implements VideosService{
@@ -139,8 +141,14 @@ public class VideosServiceImpl
     public void updateWatchcount(Integer id) {
         videosMapper.updateWatchcount(id);
     }
+
+    @Override
+    public PageBean Mainpage(Integer page, Integer pageSize, String type, String sort, String keyword) {
+        PageHelper.startPage(page,pageSize);
+        List<Videos> videos = videosMapper.selectMainVideos(type,sort,keyword);
+        Page<Videos> page1 = (Page<Videos>) videos;
+        log.info("主页总页数为"+page1.getTotal());
+
+        return new PageBean(page1.getTotal(),page1.getResult());
+    }
 }
-
-
-
-

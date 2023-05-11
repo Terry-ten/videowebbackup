@@ -42,8 +42,10 @@ public interface VideosService  {
 
     void updateVideo(Integer id, String title, String description, String coverimageurl);
 
-    @MyLogs
+
     void updateVideoAuthor(String username,String oldname );
 
     void updateWatchcount(Integer id);
+
+    PageBean Mainpage(Integer page, Integer pageSize, String type, String sort, String keyword);
 }
