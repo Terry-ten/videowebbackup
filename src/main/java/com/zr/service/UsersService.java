@@ -42,4 +42,6 @@ public interface UsersService  {
     String getQuestionByusername(String username);
 
     Users getOneUser(String username);
+
+    void updateUserPasswordById(Integer id, String password);
 }

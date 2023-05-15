@@ -42,7 +42,6 @@ public class UsersController {
                                  @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDate begin,
                                  @DateTimeFormat(pattern = "yyyy-MM-dd")LocalDate end){
         Integer roletype = (Integer) request.getAttribute("roletype");
-        log.info("usercontroller的roletype为"+roletype);
         String[] arr=this.getClass().getName().split("\\.");
         Integer id =permissionService.selectPermissionIdByController(arr[arr.length - 1]);
         List<Integer> permissionids= rolePermissionService.selectPermissionId(roletype);
@@ -76,7 +75,9 @@ public class UsersController {
     }
 
     @PostMapping("/users/update")
-    public Result updateUser(MultipartFile headimage,String username,String phonenumber,String introduction,Integer id,String headimageurl) throws IOException {
+    public Result updateUser(MultipartFile headimage,String username,
+                             String phonenumber,String introduction,Integer id,
+                             String headimageurl) throws IOException {
         String imageurl=null;
         if(headimage!=null){
             AliYunOssUtils.deleteFileByUrl(headimageurl);
@@ -85,7 +86,6 @@ public class UsersController {
             imageurl=headimageurl;
         }
         AliYunOssUtils.deleteFileByUrl(headimageurl);
-
         int result=usersService.updateUser(id,username,phonenumber,introduction,imageurl);
         if(result==UsersServiceImpl.DUPLICATE){
             return Result.error("用户名重复");
@@ -135,5 +135,15 @@ public class UsersController {
     public Result getOneUser(@PathVariable String username){
       Users users=usersService.getOneUser(username);
       return Result.success(users);
+    }
+    @PutMapping("/users/password/update/{password}/{id}")
+    public Result updatePassword(@PathVariable String password,@PathVariable Integer id ){
+        try {
+            usersService.updateUserPasswordById(id,password);
+            return Result.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Result.error("修改密码失败");
+        }
     }
 }

@@ -64,4 +64,7 @@ public interface UsersMapper extends BaseMapper<Users> {
 
     @Select("select question from users where username= #{username}")
     String selectQuestionByUsername(String username);
+
+    @Update("update users set password =#{password} where id =#{id}")
+    void updateUserPasswordById(Integer id, String password);
 }

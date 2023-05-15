@@ -239,5 +239,10 @@ public class UsersServiceImpl implements UsersService{
         return usersMapper.selectAllByUsername(username);
     }
 
+    @Override
+    public void updateUserPasswordById(Integer id, String password) {
+        usersMapper.updateUserPasswordById(id,password);
+    }
+
 
 }

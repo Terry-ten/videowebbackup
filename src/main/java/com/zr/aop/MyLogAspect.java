@@ -35,7 +35,7 @@ public class MyLogAspect {
         String token = request.getHeader("token");
         Claims claims=JwtUtils.parseJWT(token);
         Integer id= (Integer) claims.get("id");
-        String roletype=(Integer)claims.get("roletype")== 3 ? "业务管理员":"超级管理员";
+        String roletype=(Integer)claims.get("roletype")== 1 ? " 超级管理员":"普通管理员";
         String classname = joinPoint.getTarget().getClass().getName();
         String methodname = joinPoint.getSignature().getName();
         Object[] args = joinPoint.getArgs();

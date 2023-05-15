@@ -47,7 +47,8 @@ public class RolesServiceImpl
     @Override
     public void insertRole(Roles role) {
         rolesMapper.insertRole(role);
-        rolePermissionMapper.insertDefaultRolePermission(rolesMapper.selectIdByname(role.getRolename()),role.getRolename());
+        rolePermissionMapper.insertDefaultRolePermission(
+                rolesMapper.selectIdByname(role.getRolename()),role.getRolename());
     }
 
     @Override
